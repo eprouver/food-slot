@@ -5,9 +5,6 @@ const contents = {
   "reel-4": [{ type: "title", value: "Generator" }]
 };
 
-//{type: 'text', value: 'test'}
-//{type: 'img', value: 'url'}
-
 const spinNumber = 100;
 
 const populateReels = () => {
@@ -78,6 +75,7 @@ const populateReels = () => {
             $("<div>")
               .addClass("img-type")
               .css({ backgroundImage: `url(${adder.value})` })
+              // .on('click', (e) => $(e.target).slideUp().delay().fadeIn())
           );
           break;
         case "empty":
@@ -125,7 +123,7 @@ _(['reel-1', 'reel-2']).forEach((id) => {
 });
 
   contents['reel-3'] = [];
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 30; i++) {
     contents['reel-3'].push(links[~~(Math.random() * links.length)]);
   }
   
