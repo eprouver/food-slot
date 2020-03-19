@@ -107,7 +107,7 @@ _(['reel-1', 'reel-2']).forEach((id) => {
   contents[id] = [];
 
   for (let i = 0; i < 20; i++) {
-    const url = `./img/${images[~~(Math.random() * images.length)]}`;    
+    const url = `./img/${images[~~(Math.random() * images.length)].trim()}`;    
     const img = new Image();
     img.src = url;
     img.onload = () => {
