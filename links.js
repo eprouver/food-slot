@@ -2136,26 +2136,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "",
-    "url": ""
-  },
-  {
-    "type": "link",
-    "value": "Template:Cuisine of the United States",
-    "url": "https://en.wikipedia.org/wiki/Template:Cuisine_of_the_United_States"
-  },
-  {
-    "type": "link",
-    "value": "Template talk:Cuisine of the United States",
-    "url": "https://en.wikipedia.org/wiki/Template_talk:Cuisine_of_the_United_States"
-  },
-  {
-    "type": "link",
-    "value": "",
-    "url": "https://en.wikipedia.org/w/index.php?title=Template:Cuisine_of_the_United_States&action=edit"
-  },
-  {
-    "type": "link",
     "value": "American cuisine",
     "url": "https://en.wikipedia.org/wiki/American_cuisine"
   },
@@ -3058,5 +3038,115 @@ const links = [
     "type": "link",
     "value": "Tea culture",
     "url": "https://en.wikipedia.org/wiki/Tea_culture"
+  },
+  {
+    "type": "link",
+    "value": "Adulterated food",
+    "url": "https://en.wikipedia.org/wiki/Food#Adulterated_food"
+  },
+  {
+    "type": "link",
+    "value": "Camping food",
+    "url": "https://en.wikipedia.org/wiki/Food#Camping_food"
+  },
+  {
+    "type": "link",
+    "value": "Diet food",
+    "url": "https://en.wikipedia.org/wiki/Food#Diet_food"
+  },
+  {
+    "type": "link",
+    "value": "Finger food",
+    "url": "https://en.wikipedia.org/wiki/Food#Finger_food"
+  },
+  {
+    "type": "link",
+    "value": "Fresh food",
+    "url": "https://en.wikipedia.org/wiki/Food#Fresh_food"
+  },
+  {
+    "type": "link",
+    "value": "Frozen food",
+    "url": "https://en.wikipedia.org/wiki/Food#Frozen_food"
+  },
+  {
+    "type": "link",
+    "value": "Functional food",
+    "url": "https://en.wikipedia.org/wiki/Food#Functional_food"
+  },
+  {
+    "type": "link",
+    "value": "Health food",
+    "url": "https://en.wikipedia.org/wiki/Food#Health_food"
+  },
+  {
+    "type": "link",
+    "value": "Healthy food",
+    "url": "https://en.wikipedia.org/wiki/Food#Healthy_food"
+  },
+  {
+    "type": "link",
+    "value": "Kosher foods",
+    "url": "https://en.wikipedia.org/wiki/Food#Kosher_foods"
+  },
+  {
+    "type": "link",
+    "value": "Live food",
+    "url": "https://en.wikipedia.org/wiki/Food#Live_food"
+  },
+  {
+    "type": "link",
+    "value": "Medical food",
+    "url": "https://en.wikipedia.org/wiki/Food#Medical_food"
+  },
+  {
+    "type": "link",
+    "value": "Natural foods",
+    "url": "https://en.wikipedia.org/wiki/Food#Natural_foods"
+  },
+  {
+    "type": "link",
+    "value": "Negative-calorie food",
+    "url": "https://en.wikipedia.org/wiki/Food#Negative-calorie_food"
+  },
+  {
+    "type": "link",
+    "value": "Organic food",
+    "url": "https://en.wikipedia.org/wiki/Food#Organic_food"
+  },
+  {
+    "type": "link",
+    "value": "Peasant foods",
+    "url": "https://en.wikipedia.org/wiki/Food#Peasant_foods"
+  },
+  {
+    "type": "link",
+    "value": "Prison food",
+    "url": "https://en.wikipedia.org/wiki/Food#Prison_food"
+  },
+  {
+    "type": "link",
+    "value": "Seasonal food",
+    "url": "https://en.wikipedia.org/wiki/Food#Seasonal_food"
+  },
+  {
+    "type": "link",
+    "value": "Shelf-stable food",
+    "url": "https://en.wikipedia.org/wiki/Food#Shelf-stable_food"
+  },
+  {
+    "type": "link",
+    "value": "Space food",
+    "url": "https://en.wikipedia.org/wiki/Food#Space_food"
+  },
+  {
+    "type": "link",
+    "value": "Traditional food",
+    "url": "https://en.wikipedia.org/wiki/Food#Traditional_food"
+  },
+  {
+    "type": "link",
+    "value": "Whole food",
+    "url": "https://en.wikipedia.org/wiki/Food#Whole_food"
   }
-]
+];

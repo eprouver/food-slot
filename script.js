@@ -75,6 +75,7 @@ const populateReels = () => {
             $("<div>")
               .addClass("img-type")
               .css({ backgroundImage: `url(${adder.value})` })
+              .attr('data', adder.text)
               // .on('click', (e) => $(e.target).slideUp().delay().fadeIn())
           );
           break;
@@ -107,13 +108,15 @@ _(['reel-1', 'reel-2']).forEach((id) => {
   contents[id] = [];
 
   for (let i = 0; i < 20; i++) {
-    const url = `./img/${images[~~(Math.random() * images.length)].trim()}`;    
+    const file = images[~~(Math.random() * images.length)];
+    const url = `./img/${file.trim()}`;    
     const img = new Image();
     img.src = url;
     img.onload = () => {
       contents[id].push({
       type: "img",
       value: url,
+      text: file.trim().replace('.svg', '').replace(/[0-9]/g, '').replace(/-/g, ' ').trim(),
     });    
     }
   }
