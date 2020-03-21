@@ -7,13 +7,38 @@ const contents = {
 
 const spinNumber = 100;
 
+let spin;
+
+const start = new Howl({
+    src: ['sounds/roll.mp3'],
+    volume: 0.25,
+  });
+
+const clicks = [
+  new Howl({
+    src: ['sounds/test.mp3'],
+    volume: 0.5,
+  }),
+  new Howl({
+    src: ['sounds/testtwo.mp3'],
+    volume: 0.5,
+  }), 
+  new Howl({
+    src: ['sounds/testthree.mp3'],
+        volume: 0.25,
+  }), 
+  new Howl({
+    src: ['sounds/testfour.mp3']
+})];
+
 const populateReels = () => {
-  _(contents).forEach((val, id) => {
+  _(contents).forEach((val, id, obj) => {
     // val []
     // id 'reel #'
     // get the last 4 items in each reel;
     const reel = $(`#${id}`);
     const screen = [];
+    const index = _(obj).toArray().indexOf(val);
 
     for (let i = 0; i < 3; i++) {
       const last = reel
@@ -29,14 +54,26 @@ const populateReels = () => {
     });
 
     const spinner = $("<div>")
+      .css({
+        pointerEvents: 'none',
+      })
       .addClass("spinner")
-      .on("transitionend", () => {
+      .on("transitionend", _.once(() => {
         reel.css({
           zIndex: 2,
         });
         const cell = spinner.children()[spinNumber + 1];
-        $(cell).addClass("animated heartBeat");
-      });
+        if (cell && !$(cell).hasClass('empty-type')) {
+          $(cell).addClass("animated bounce");
+          spinner.css({
+            pointerEvents: 'auto',
+          });
+          _.delay(() => {
+            const sfx = clicks[index % clicks.length].play();
+            clicks[index % clicks.length].rate(1.5, sfx);
+          }, 500);         
+        }
+      }));
     reel.append(spinner);
 
     screen.forEach(cell => {
@@ -80,7 +117,8 @@ const populateReels = () => {
           );
           break;
         case "empty":
-          cell.css({
+          cell.addClass('empty-type')
+          .css({
             visibility: 'hidden',
           });
           break;
@@ -92,6 +130,16 @@ const populateReels = () => {
 };
 
 const spinReels = () => {
+  if (spin) {
+      spin.play();
+  } else {
+    spin = new Howl({
+      src: ['sounds/click.mp3']
+    });
+  }
+  
+  start.play();
+
   $(".heartBeat").removeClass("heartBeat");
   populateReels();
   $(".spinner").each((i, spinner) => {
@@ -104,6 +152,12 @@ const spinReels = () => {
 
 spinReels();
 
+_.delay(() => {
+  clicks.forEach(c => c.play());
+}, 8000);
+
+
+// Populate with images and whatnot
 _(['reel-1', 'reel-2']).forEach((id) => {
   contents[id] = [];
 

@@ -120,7 +120,7 @@ body {
 
 
 
-.img-type:before {
+.animated .img-type:before {
     content: attr(data);
     top: 50%;
     position: relative;
@@ -138,12 +138,12 @@ body {
     text-overflow: ellipsis;
 }
 
-.img-type:hover {
+.animated .img-type:hover {
   filter: sepia(1) saturate(6);
   display:flex;
 }
 
-.img-type:hover:before {
+.animated .img-type:hover:before {
   opacity: 1;
 }
 
