@@ -31,7 +31,10 @@ const clicks = [
     src: ['sounds/testfour.mp3']
 })];
 
+let winImage = [];
+
 const populateReels = () => {
+  winImage = [];
   _(contents).forEach((val, id, obj) => {
     // val []
     // id 'reel #'
@@ -62,9 +65,11 @@ const populateReels = () => {
         reel.css({
           zIndex: 2,
         });
+        $('.win-type').remove();
         const cell = spinner.children()[spinNumber + 1];
         if (cell && !$(cell).hasClass('empty-type')) {
           $(cell).addClass("animated bounce");
+          winImage.push($(cell).data('adder'));
           spinner.css({
             pointerEvents: 'auto',
           });
@@ -81,7 +86,7 @@ const populateReels = () => {
     });
 
     // add items to each reel
-    for (let i = 0; i < spinNumber; i++) {
+    new Array(spinNumber).fill(0.0, 0, spinNumber).forEach(() => {
       const adder = val[~~(Math.random() * val.length)];
       const cell = $("<div>").addClass("cell");
       switch (adder.type) {
@@ -101,20 +106,20 @@ const populateReels = () => {
           );
           break;
         case "link":
-            cell.append($("<a>")
+          const link = $("<a>")
               .addClass("link-type")
               .attr('href', adder.url)
               .attr('target', '_BLANK')
-              .text(adder.value));    
+              .text(adder.value);
+            cell.append(link);
           break;
         case "img":
-          cell.append(
-            $("<div>")
+          cell.append($("<div>")
               .addClass("img-type")
               .css({ backgroundImage: `url(${adder.value})` })
               .attr('data', adder.text)
-              // .on('click', (e) => $(e.target).slideUp().delay().fadeIn())
-          );
+              // .on('click', (e) => $(e.target).slideUp().delay().fadeIn()));
+          ).data('adder', adder);
           break;
         case "empty":
           cell.addClass('empty-type')
@@ -125,8 +130,29 @@ const populateReels = () => {
       }
       cell.data("voice", adder.voice);
       spinner.append(cell);
-    }
+    });
   });
+  
+  $('.win-type').remove();
+  setTimeout(() => {
+    for(let i = 0; i < 20; i++){
+      winImage.forEach((adder) => {
+        if (adder && adder.type === 'img') {
+          setTimeout(() => {
+            $('body').prepend($("<div>")
+            .addClass("win-type")
+            .css({
+                backgroundImage: `url(${adder.value})`,
+                top: ~~(Math.random() * window.innerHeight) - 100,
+                left: ~~(Math.random() * window.innerWidth) - 100,
+             })
+           );            
+          }, i * 200)
+         
+        }
+      });
+    }
+  }, 10000);
 };
 
 const spinReels = () => {

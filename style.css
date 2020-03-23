@@ -1,21 +1,25 @@
 body {
   background-color: gray;
   background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.5) 35px, rgba(255, 255, 255, 0.5) 70px);
-  padding: 10px;
   overflow-x: hidden;
+}
+
+#slot-container {
+  position: relative;
+  margin: 0 auto;
 }
 
 #reel-container {
   background: #fff;
-  margin: 20px 50px;
-  padding: 0 10px;
+  margin: 50px 60px;
+  padding: 10px;
   border: 10px solid #ccc;
   border-radius: 10px;
   height: 73vh;
   font-size: 1em;
   display: grid;
   grid-gap: 0 10px;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: 25% 25% 25% auto;
   font-family: Arial;
   overflow: hidden;
   box-shadow: inset 0 0 20px black;
@@ -77,6 +81,7 @@ body {
   border: none;
   overflow: hidden;
   transition: all 0.5s ease;
+  max-width: 25vw;
 }
 #reel-container .reel .cell .text-type {
   text-align: center;
@@ -98,20 +103,20 @@ body {
 #reel-container .reel .cell .link-type {
     text-align: center;
     margin: auto;
-    font-size: 1.64em;
-    padding: 0 10px;
-    max-width: 12vw;
     letter-spacing: -0.05em;
     color: #000081;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-size: 4vmin;
     font-weight: bold;
+    padding: 10px;
 }
 #reel-container .reel .cell .img-type {
   text-align: center;
   margin: 5px auto;
   height: calc(100% - 10px);
-  width: 80%;
-  min-width: 15vw;
-  background-size: 100% 20vh;
+  width: 17vw;
+  background-size: 100% 80%;
   background-repeat: no-repeat;
   background-position: center center;
   display: block;
@@ -164,11 +169,12 @@ body {
 #spin-container {
   text-align: center;
   display: flex;
+  background: rgba(128, 128, 128, 0.62);
 }
 
 #spin-container .button {
   width: 50%;
-  font-size: 4em;
+  font-size: 6vh;
   padding: 10px;
   font-family: Helvetica;
   font-weight: bold;
@@ -205,6 +211,14 @@ body {
     animation: 5s ease-in 1s infinite text-shadow;
 }
 
+.win-type {
+    width: 30vmin;
+    height: 30vmin;
+    position: absolute;
+    background-size: contain;
+    animation: 4s ease rollIn forwards;
+    z-index: -1;
+}
 
 @keyframes text-shadow {
     0% {  
