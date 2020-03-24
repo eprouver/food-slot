@@ -8,6 +8,7 @@ const contents = {
 const spinNumber = 100;
 
 let spin;
+let isSpinning = false;
 
 const start = new Howl({
     src: ['sounds/roll.mp3'],
@@ -33,62 +34,8 @@ const clicks = [
 
 let winImage = [];
 
-const populateReels = () => {
-  winImage = [];
-  _(contents).forEach((val, id, obj) => {
-    // val []
-    // id 'reel #'
-    // get the last 4 items in each reel;
-    const reel = $(`#${id}`);
-    const screen = [];
-    const index = _(obj).toArray().indexOf(val);
-
-    for (let i = 0; i < 3; i++) {
-      const last = reel
-        .find(".spinner")
-        .children()
-        .last();
-      last.detach();
-      screen.push(last);
-    }
-
-    reel.empty().css({
-      zIndex: 0,
-    });
-
-    const spinner = $("<div>")
-      .css({
-        pointerEvents: 'none',
-      })
-      .addClass("spinner")
-      .on("transitionend", _.once(() => {
-        reel.css({
-          zIndex: 2,
-        });
-        $('.win-type').remove();
-        const cell = spinner.children()[spinNumber + 1];
-        if (cell && !$(cell).hasClass('empty-type')) {
-          $(cell).addClass("animated bounce");
-          winImage.push($(cell).data('adder'));
-          spinner.css({
-            pointerEvents: 'auto',
-          });
-          _.delay(() => {
-            const sfx = clicks[index % clicks.length].play();
-            clicks[index % clicks.length].rate(1.5, sfx);
-          }, 500);         
-        }
-      }));
-    reel.append(spinner);
-
-    screen.forEach(cell => {
-      spinner.prepend(cell);
-    });
-
-    // add items to each reel
-    new Array(spinNumber).fill(0.0, 0, spinNumber).forEach(() => {
-      const adder = val[~~(Math.random() * val.length)];
-      const cell = $("<div>").addClass("cell");
+const addCell = (adder, spinner) => {
+        const cell = $("<div>").addClass("cell");
       switch (adder.type) {
         case "text":
           cell.append(
@@ -130,15 +77,75 @@ const populateReels = () => {
       }
       cell.data("voice", adder.voice);
       spinner.append(cell);
+};
+
+const populateReels = () => {
+  winImage = [];
+  _(contents).forEach((val, id, obj) => {
+    // val []
+    // id 'reel #'
+    // get the last 4 items in each reel;
+    const reel = $(`#${id}`);
+    const screen = [];
+    const index = _(obj).toArray().indexOf(val);
+
+    for (let i = 0; i < 3; i++) {
+      const last = reel
+        .find(".spinner")
+        .children()
+        .last();
+      last.detach();
+      screen.push(last);
+    }
+
+    reel.empty().css({
+      zIndex: 0,
+    });
+
+    const spinner = $("<div>")
+      .css({
+        pointerEvents: 'none',
+      })
+      .addClass("spinner")
+      .on("transitionend", _.once(() => {
+        reel.css({
+          zIndex: 2,
+        });
+        isSpinning = false;
+        $('.win-type').remove();
+        const cell = spinner.children()[spinNumber + 1];
+        if (cell && !$(cell).hasClass('empty-type')) {
+          $(cell).addClass("animated bounce");
+          winImage.push($(cell).data('adder'));
+          spinner.css({
+            pointerEvents: 'auto',
+          });
+          _.delay(() => {
+            const sfx = clicks[index % clicks.length].play();
+            clicks[index % clicks.length].rate(1.5, sfx);
+          }, 500);         
+        }
+      }));
+    reel.append(spinner);
+
+    screen.forEach(cell => {
+      spinner.prepend(cell);
+    });
+
+    // add items to each reel
+    new Array(spinNumber).fill(0.0, 0, spinNumber).forEach(() => {
+      const adder = val[~~(Math.random() * val.length)];
+      addCell(adder, spinner);
     });
   });
   
   $('.win-type').remove();
-  setTimeout(() => {
+/*  setTimeout(() => {
     for(let i = 0; i < 20; i++){
       winImage.forEach((adder) => {
         if (adder && adder.type === 'img') {
           setTimeout(() => {
+            if (isSpinning) return;
             $('body').prepend($("<div>")
             .addClass("win-type")
             .css({
@@ -152,10 +159,11 @@ const populateReels = () => {
         }
       });
     }
-  }, 10000);
+  }, 10000); */
 };
 
 const spinReels = () => {
+  isSpinning = true;
   if (spin) {
       spin.play();
   } else {

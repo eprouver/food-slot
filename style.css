@@ -111,6 +111,7 @@ body {
     font-weight: bold;
     padding: 10px;
 }
+
 #reel-container .reel .cell .img-type {
   text-align: center;
   margin: 5px auto;
@@ -127,17 +128,17 @@ body {
 
 .animated .img-type:before {
     content: attr(data);
-    top: 50%;
+    top: 4.5em;
     position: relative;
     background: yellow;
     padding: 20px;
-    font-size: 2em;
+    font-size: 3vmin;
     text-transform: capitalize;
     font-weight: bold;
     border-radius: 10px;
     opacity: 0;
     transition: opacity 0.4s ease;
-    box-shadow: 0 0 0 5px black;
+    box-shadow: 0 0 0 0.5vmin black;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -173,16 +174,21 @@ body {
 }
 
 #spin-container .button {
-  width: 50%;
-  font-size: 6vh;
-  padding: 10px;
-  font-family: Helvetica;
-  font-weight: bold;
-  margin: 10px auto;
-  height: 10vh;
-  background: #eee;
-  border: 1px solid #444;
-  border-radius: 5px;
+    width: 50%;
+    font-size: 6vh;
+    padding: 10px;
+    font-family: Helvetica;
+    font-weight: bold;
+    margin: 10px auto;
+    height: 10vh;
+    border-radius: 10px;
+    border-bottom: 5px solid #777;
+    box-shadow: inset 0px 1px 0px 0px #ffffff;
+    background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+    background-color: #ededed;
+    text-shadow: 0px 1px 0px #ffffff;
+    border-left: 0;
+    border-right: 0;
 }
 
 #spin-container #link-button {
@@ -267,3 +273,6 @@ body {
     }
 }
 
+#attrib {
+  margin: 10px;
+}
