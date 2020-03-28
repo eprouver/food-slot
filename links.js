@@ -3776,11 +3776,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "plantfood",
-    "url": "https://www.reddit.com/r/plantfood/top/?t=all"
-  },
-  {
-    "type": "link",
     "value": "LeCordonBleu",
     "url": "https://www.reddit.com/r/LeCordonBleu/top/?t=all"
   },

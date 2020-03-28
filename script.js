@@ -1,8 +1,8 @@
 const contents = {
-  "reel-1": [{ type: "title", value: "Awesome" }],
-  "reel-2": [{ type: "title", value: "Food" }],
-  "reel-3": [{ type: "title", value: "Idea" }],
-  "reel-4": [{ type: "title", value: "Generator" }]
+  "reel-1": [{ type: "title", value: "Awesome", className: 'no-filter' }],
+  "reel-2": [{ type: "title", value: "Food", className: 'no-filter' }],
+  "reel-3": [{ type: "title", value: "Idea", className: 'no-filter' }],
+  "reel-4": [{ type: "title", value: "Spinner", className: 'no-filter' }]
 };
 
 const spinNumber = 100;
@@ -50,7 +50,7 @@ const addCell = (adder, spinner) => {
             $("<div>")
               .addClass("title-type")
               .text(adder.value)
-          );
+          ).addClass(adder.className);
           break;
         case "link":
           const link = $("<a>")
@@ -113,9 +113,15 @@ const populateReels = () => {
         });
         isSpinning = false;
         $('.win-type').remove();
+        $('#reel-container').css({
+          background: '#efefef',
+        });
+        
+        $(spinner.children()).css({filter: 'grayscale(1)'});
+
         const cell = spinner.children()[spinNumber + 1];
         if (cell && !$(cell).hasClass('empty-type')) {
-          $(cell).addClass("animated bounce");
+          $(cell).addClass("animated swing");
           winImage.push($(cell).data('adder'));
           spinner.css({
             pointerEvents: 'auto',
@@ -165,6 +171,9 @@ const populateReels = () => {
 const spinReels = () => {
   isSpinning = true;
   if (spin) {
+      $('#reel-container').css({
+        background: 'white',
+      });
       spin.play();
   } else {
     spin = new Howl({
