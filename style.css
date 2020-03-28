@@ -1,5 +1,5 @@
 body {
-  background-color: #b8b8f1;
+  background-color: #999;
   background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.25) 35px, rgba(255, 255, 255, 0.25) 70px);
   overflow-x: hidden;
 }
@@ -169,7 +169,7 @@ body {
 #spin-container {
   text-align: center;
   display: flex;
-  background: rgba(184, 184, 241, 0.68);
+  background: rgba(130,130,130, 0.74);
 }
 
 #spin-container .button {
@@ -197,7 +197,7 @@ body {
 
 .animated {
     animation-delay: 0.35s;
-    box-shadow: 0 9px 28px #636060;
+    box-shadow: 0 0 0 10px yellow;
     background-color: yellow;
     z-index: 10;
     position: relative;

@@ -121,7 +121,7 @@ const populateReels = () => {
 
         const cell = spinner.children()[spinNumber + 1];
         if (cell && !$(cell).hasClass('empty-type')) {
-          $(cell).addClass("animated swing");
+          $(cell).addClass("animated bounce");
           winImage.push($(cell).data('adder'));
           spinner.css({
             pointerEvents: 'auto',
