@@ -1,7 +1,8 @@
 body {
-  background-color: #999;
+  background-color: #00af00;
   background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.25) 35px, rgba(255, 255, 255, 0.25) 70px);
   overflow-x: hidden;
+  transition: background-color 0.5s ease;
 }
 
 #slot-container {
@@ -11,7 +12,7 @@ body {
 
 #reel-container {
   background: #fff;
-  margin: 50px 60px;
+  margin: 40px 60px;
   padding: 10px;
   border: 10px solid #fff;
   border-radius: 10px;
@@ -22,7 +23,7 @@ body {
   grid-template-columns: 25% 25% 25% auto;
   font-family: Arial;
   overflow: hidden;
-  box-shadow: inset 0 0 20px #545454, 0 0 5px #737373;
+  box-shadow: inset 0 0 20px #484848, 0 0 5px #4c4c4c;
   transition: all 0.5s ease;
 }
 #reel-container:before {
@@ -109,7 +110,7 @@ body {
     text-transform: capitalize;
     text-decoration: none;
     font-size: 4vmin;
-    font-weight: bold;
+    font-weight: 900;
     padding: 10px;
 }
 
@@ -169,7 +170,8 @@ body {
 #spin-container {
   text-align: center;
   display: flex;
-  background: rgba(130,130,130, 0.74);
+  z-index: 1100;
+  position: relative;
 }
 
 #spin-container .button {
@@ -182,12 +184,13 @@ body {
     height: 10vh;
     border-radius: 10px;
     border-bottom: 5px solid #777;
-    box-shadow: inset 0px 1px 0px 0px #ffffff;
+    box-shadow: inset 0px 1px 0px 0px #ffffff, 0 0 0 10px #999999;
     background: linear-gradient(to bottom, #ededed 5%, #a5a5a5 100%);
     background-color: #ededed;
     text-shadow: 0px 1px 0px #ffffff;
     border-left: 0;
     border-right: 0;
+    outline: none !important;
 }
 
 #spin-container #link-button {
@@ -279,4 +282,24 @@ body {
 
 #attrib {
   margin: 10px;
+}
+
+.flashin {
+  background-size: contain;
+  position: fixed;
+  height: 45vh;
+  width: 45vh;
+  bottom: 1vh;
+  z-index: 999;
+  left: -1vh;
+  animation: 1s ease rotateInUpLeft;
+  display: none;
+  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.75));
+  pointer-events: none;
+}
+
+#right-ing {
+  right: -1vh;
+  left: auto;
+  animation: 1s ease rotateInUpRight;
 }

@@ -116,8 +116,11 @@ const populateReels = () => {
         $('#reel-container').css({
           background: '#efefef',
         });
+        $('body').css({
+          backgroundColor: '#999',
+        });
         
-        $(spinner.children()).css({filter: 'grayscale(1)'});
+        $(spinner.children()).css({filter: 'blur(2px) contrast(0.35) brightness(1.35) grayscale(1)'});
 
         const cell = spinner.children()[spinNumber + 1];
         if (cell && !$(cell).hasClass('empty-type')) {
@@ -146,6 +149,7 @@ const populateReels = () => {
   });
   
   $('.win-type').remove();
+  /* background of winning images */
 /*  setTimeout(() => {
     for(let i = 0; i < 20; i++){
       winImage.forEach((adder) => {
@@ -165,15 +169,32 @@ const populateReels = () => {
         }
       });
     }
+  }, 10000); 
+  setTimeout(() => {
+    if (winImage[0]) {
+      $('#left-ing').css({
+        backgroundImage: `url(${winImage[0].value})`,
+      }).show();
+    }
+    
+    if (winImage[1]){
+       $('#right-ing').css({
+        backgroundImage: `url(${winImage[1].value})`,
+      }).show();     
+    }
   }, 10000); */
 };
 
 const spinReels = () => {
   isSpinning = true;
+  $('.flashin').hide();
   if (spin) {
       $('#reel-container').css({
         background: 'white',
       });
+      $('body').css({
+          backgroundColor: '#00af00',
+        });
       spin.play();
   } else {
     spin = new Howl({

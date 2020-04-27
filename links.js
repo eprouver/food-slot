@@ -2946,11 +2946,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "Ent Treats",
-    "url": "https://www.reddit.com/r/EntTreats/top/?t=all"
-  },
-  {
-    "type": "link",
     "value": "Pizza",
     "url": "https://www.reddit.com/r/Pizza/top/?t=all"
   },
