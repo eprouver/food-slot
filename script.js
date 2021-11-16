@@ -277,8 +277,8 @@ spinReels();
 _(['reel-1', 'reel-2']).forEach((id) => {
   contents[id] = [];
 
-  for (let i = 0; i < 50; i++) {
-    const file = images[~~(Math.random() * images.length)];
+  for (let i = 0; i < images.length; i++) {
+    const file = images[i];
     const url = `./img/${file.trim()}`;
     const img = new Image();
     img.src = url;
