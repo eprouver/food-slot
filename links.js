@@ -3776,11 +3776,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "Frankenfood",
-    "url": "https://www.reddit.com/r/Frankenfood/top/?t=all"
-  },
-  {
-    "type": "link",
     "value": "munchies",
     "url": "https://www.reddit.com/r/munchies/top/?t=all"
   },

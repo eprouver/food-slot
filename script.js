@@ -174,6 +174,7 @@ const spinReels = (addExtras = false) => {
   selectNewVoice();
   isSpinning = true;
   $('.flashin').hide();
+  $('#board').removeClass('done-done');
   $('#info-container').hide();
   $('#spin-links').empty();
   if (spin) {
@@ -192,7 +193,7 @@ const spinReels = (addExtras = false) => {
     let search = exData.map(e => e.text).join(' ');
 
     $('#spin-links').append($('<h3>').text(exData.map(e => e.text).join(', ').toUpperCase()));
-    $('#spin-links').append($('<div>').html(`<strong>${exData[2].text}</strong>: ${exData[2].link}`));
+    $('#spin-links').append($('<div>').html(`<strong>${exData[2].text}</strong>: <a href="${exData[2].link}" target="_blank">${exData[2].link}</a>`));
 
     let url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}
         &part=id&q=${search}&maxResults=1&type=video&relevanceLanguage=en&topicId=/m/02wbm`;
@@ -207,7 +208,7 @@ const spinReels = (addExtras = false) => {
         // .append($('<a target="_blank">').attr('href', `https://www.youtube.com/watch?v=${data.items[0].id.videoId}`).text(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`))
         .append($(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.items[0].id.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`))
 
-        $('#spin-links').append($('<div>').html(`<strong>YouTube Video</strong>: https://www.youtube.com/watch?v=${data.items[0].id.videoId}`))
+        $('#spin-links').append($('<div>').html(`<strong>YouTube Video</strong>: <a href="https://www.youtube.com/watch?v=${data.items[0].id.videoId}" target="_blank">https://www.youtube.com/watch?v=${data.items[0].id.videoId}</a>`))
       },
     });
 
@@ -246,7 +247,7 @@ const spinReels = (addExtras = false) => {
 
           recipes.append(holder);
 
-          $('#spin-links').append($('<div>').html(`<strong>${rep.label}</strong>: ${rep.url}`))
+          $('#spin-links').append($('<div>').html(`<strong>${rep.label}</strong>: <a href="${rep.url}" target="_blank">${rep.url}</a>`))
         })
       },
       error: function (data) {
@@ -256,6 +257,7 @@ const spinReels = (addExtras = false) => {
 
     _.delay(() => {
       $('#info-container').show(1000);
+      $('#board').addClass('done-done');
       recipes.scrollTop(0);
     }, 8000)
   }
@@ -275,7 +277,7 @@ spinReels();
 _(['reel-1', 'reel-2']).forEach((id) => {
   contents[id] = [];
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 50; i++) {
     const file = images[~~(Math.random() * images.length)];
     const url = `./img/${file.trim()}`;
     const img = new Image();
@@ -297,9 +299,9 @@ _(['reel-1', 'reel-2']).forEach((id) => {
   for (let i = 0; i < 30; i++) {
     contents['reel-3'].push(links[~~(Math.random() * links.length)]);
   }
-
-  contents['reel-4'] = [];
-  contents['reel-4'].push({ type: "title", value: "Guest" });
-
-  contents['reel-4'].push({ type: "text", value: "Dish Battle", className: 'jumping-text' });
-  contents['reel-4'].push({ type: "text", value: "Viewer Suggestion" });
+  //
+  // contents['reel-4'] = [];
+  // contents['reel-4'].push({ type: "title", value: "Guest" });
+  //
+  // contents['reel-4'].push({ type: "text", value: "Dish Battle", className: 'jumping-text' });
+  // contents['reel-4'].push({ type: "text", value: "Viewer Suggestion" });
