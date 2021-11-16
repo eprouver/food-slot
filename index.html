@@ -2,8 +2,9 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Awesome Food Idea Generator</title>
+  <title>New Food Idea Generator</title>
   <link rel="shortcut icon" type="image/svg" href='./favicon.svg'>
+  <script src="https://developer.edamam.com/attribution/badge.js"></script>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css'>
  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css'><link rel="stylesheet" href="./style.css">
  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -11,43 +12,64 @@
 <body>
 
 <div id="slot-container">
+  <div id="board">
   <div id="reel-container">
     <div id="reel-1" class="reel" data-title="Protein"></div>
     <div id="reel-2" class="reel" data-title="Ingredient"></div>
     <div id="reel-3" class="reel" data-title="Inspiration"></div>
-    <div id="reel-4" class="reel" data-title="Special"></div>
   </div>
-  <!--
-  <div id="left-ing" class="flashin"></div> 
-  <div id="right-ing" class="flashin"></div>
-  -->
+
+  <div id="info-container" style="display:none">
+    <div id="yt-video" class="extra-info"></div>
+    <br/>
+    <div id="eda-recipes" class="extra-info"></div>
+  </div>
+
+</div>
+<br/>
   <div id="spin-container">
-    <button id="link-button" class="button">
+    <!-- <button id="link-button" class="button">
       See the videos
-    </button>
-    <button id="spin-button" class="button" onclick="spinReels()">
+    </button> -->
+    <button id="spin-button" class="button" onclick="spinReels(true)">
       SPIN
     </button>
   </div>
 </div>
 
 <br/><br/><br/>
+<div id="bottom-stuff">
 <div id='attrib'>
   <a href=".">Reload with new reels</a>
   <br/><br/><br/>
   Attributions:<br/>
   Icons made by <a target="_BLANK" href="https://www.flaticon.com/authors/monkik" title="monkik">monkik</a> from <a target="_BLANK" href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
   <div><a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div><div> <a href="https://www.flaticon.com/authors/turkkub" title="turkkub">turkkub</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div><div> <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div><div> <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div><div> <a href="https://www.flaticon.com/authors/surang" title="surang">surang</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div><div> <a href="https://www.flaticon.com/authors/ultimatearm" title="ultimatearm">ultimatearm</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div><div> <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/"     title="Flaticon">www.flaticon.com</a></div>
+  <br/>
+  <div id="edamam-badge" data-color="white"></div>
+</div>
+
+<div id="spin-links">
+
+</div>
 </div>
 <!-- partial -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.min.js" integrity="sha256-/Q4ZPy6sMbk627wHxuaWSIXS1y7D2KnMhsm/+od7ptE=" crossorigin="anonymous"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/textfit/2.4.0/textFit.min.js" integrity="sha256-FVX67V27BmQoXxFOU8Jx4+C9fDK6FLl4k/j5UhSsC88=" crossorigin="anonymous"></script>
 <script  src="./images.js"></script>
 <script  src="./links.js"></script>
 <script  src="./script.js"></script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5CXPV3NXJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J5CXPV3NXJ');
+</script>
+
 </body>
 </html>
-

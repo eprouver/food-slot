@@ -3736,11 +3736,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "zymurgy",
-    "url": "https://www.reddit.com/r/zymurgy/top/?t=all"
-  },
-  {
-    "type": "link",
     "value": "Kombucha",
     "url": "https://www.reddit.com/r/Kombucha/top/?t=all"
   },

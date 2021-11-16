@@ -1,19 +1,13 @@
 const contents = {
-  "reel-1": [{ type: "title", value: "Awesome", className: 'no-filter' }],
+  "reel-1": [{ type: "title", value: "New", className: 'no-filter' }],
   "reel-2": [{ type: "title", value: "Food", className: 'no-filter' }],
-  "reel-3": [{ type: "title", value: "Idea", className: 'no-filter' }],
-  "reel-4": [{ type: "title", value: "Spinner", className: 'no-filter' }]
+  "reel-3": [{ type: "title", value: "Idea", className: 'no-filter' }]
 };
 
-const spinNumber = 100;
+const spinNumber = 30;
 
 let spin;
 let isSpinning = false;
-
-const start = new Howl({
-    src: ['sounds/roll.mp3'],
-    volume: 0.25,
-  });
 
 const clicks = [
   new Howl({
@@ -23,16 +17,41 @@ const clicks = [
   new Howl({
     src: ['sounds/testtwo.mp3'],
     volume: 0.5,
-  }), 
+  }),
   new Howl({
     src: ['sounds/testthree.mp3'],
         volume: 0.25,
-  }), 
-  new Howl({
-    src: ['sounds/testfour.mp3']
-})];
+  })];
 
 let winImage = [];
+
+let voice;
+let selectNewVoice = () => {
+  let tries = 0;
+
+  voice = window.speechSynthesis
+    .getVoices()
+    .filter((voice) => voice.lang.indexOf('en') > -1);
+  voice = voice[new Date%voice.length];
+
+  if (!voice) {
+    setTimeout(selectNewVoice, 1000);
+  }
+}
+
+selectNewVoice();
+
+let say = (m) => {
+  speechSynthesis.cancel();
+  let msg = new SpeechSynthesisUtterance();
+  msg.voice = voice;
+  msg.volume = 0.25;
+  // msg.pitch = 1.1;
+  msg.rate = 1.3;
+  msg.text = m;
+  msg.lang = 'en';
+  speechSynthesis.speak(msg);
+};
 
 const addCell = (adder, spinner) => {
         const cell = $("<div>").addClass("cell");
@@ -101,6 +120,7 @@ const populateReels = () => {
     reel.empty().css({
       zIndex: 0,
     });
+    let cell;
 
     const spinner = $("<div>")
       .css({
@@ -113,26 +133,18 @@ const populateReels = () => {
         });
         isSpinning = false;
         $('.win-type').remove();
-        $('#reel-container').css({
-          background: '#efefef',
-        });
-        $('body').css({
-          backgroundColor: '#999',
-        });
-        
-        $(spinner.children()).css({filter: 'blur(2px) contrast(0.35) brightness(1.35) grayscale(1)'});
 
-        const cell = spinner.children()[spinNumber + 1];
         if (cell && !$(cell).hasClass('empty-type')) {
-          $(cell).addClass("animated bounce");
-          winImage.push($(cell).data('adder'));
+          $(cell).addClass("animated tada");
+          const adder = $(cell).data('adder') || { text: cell.textContent };
           spinner.css({
             pointerEvents: 'auto',
           });
           _.delay(() => {
+            _.delay(() => { say(adder.text); }, 500);
             const sfx = clicks[index % clicks.length].play();
             clicks[index % clicks.length].rate(1.5, sfx);
-          }, 500);         
+          }, 500);
         }
       }));
     reel.append(spinner);
@@ -146,66 +158,108 @@ const populateReels = () => {
       const adder = val[~~(Math.random() * val.length)];
       addCell(adder, spinner);
     });
+
+    cell = spinner.children()[spinNumber + 1];
+    if (cell) {
+      const adder = $(cell).data('adder') || { text: cell.textContent, link: cell.firstChild.getAttribute('href') };
+      winImage.push(adder);
+    }
   });
-  
+
   $('.win-type').remove();
-  /* background of winning images */
-/*  setTimeout(() => {
-    for(let i = 0; i < 20; i++){
-      winImage.forEach((adder) => {
-        if (adder && adder.type === 'img') {
-          setTimeout(() => {
-            if (isSpinning) return;
-            $('body').prepend($("<div>")
-            .addClass("win-type")
-            .css({
-                backgroundImage: `url(${adder.value})`,
-                top: ~~(Math.random() * window.innerHeight) - 100,
-                left: ~~(Math.random() * window.innerWidth) - 100,
-             })
-           );            
-          }, i * 200)
-         
-        }
-      });
-    }
-  }, 10000); 
-  setTimeout(() => {
-    if (winImage[0]) {
-      $('#left-ing').css({
-        backgroundImage: `url(${winImage[0].value})`,
-      }).show();
-    }
-    
-    if (winImage[1]){
-       $('#right-ing').css({
-        backgroundImage: `url(${winImage[1].value})`,
-      }).show();     
-    }
-  }, 10000); */
+  return winImage;
 };
 
-const spinReels = () => {
+const spinReels = (addExtras = false) => {
+  selectNewVoice();
   isSpinning = true;
   $('.flashin').hide();
+  $('#info-container').hide();
+  $('#spin-links').empty();
   if (spin) {
-      $('#reel-container').css({
-        background: 'white',
-      });
-      $('body').css({
-          backgroundColor: '#00af00',
-        });
       spin.play();
   } else {
     spin = new Howl({
-      src: ['sounds/click.mp3']
+      src: ['sounds/click.mp3'],
+      volume: 0.15,
     });
   }
-  
-  start.play();
 
-  $(".heartBeat").removeClass("heartBeat");
-  populateReels();
+  const exData = populateReels();
+
+  if (addExtras && exData) {
+    const API_KEY = "AIzaSyCiAvnALpVZq0dUkW4uXMsoprsunUHpDyI";
+    let search = exData.map(e => e.text).join(' ');
+
+    $('#spin-links').append($('<h3>').text(exData.map(e => e.text).join(', ').toUpperCase()));
+    $('#spin-links').append($('<div>').html(`<strong>${exData[2].text}</strong>: ${exData[2].link}`));
+
+    let url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}
+        &part=id&q=${search}&maxResults=1&type=video&relevanceLanguage=en&topicId=/m/02wbm`;
+
+    $('#yt-video').empty().text('no videos found');
+
+    $.ajax({
+      method: "GET",
+      url: url,
+      success: function (data) {
+        $('#yt-video').empty()
+        // .append($('<a target="_blank">').attr('href', `https://www.youtube.com/watch?v=${data.items[0].id.videoId}`).text(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`))
+        .append($(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.items[0].id.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`))
+
+        $('#spin-links').append($('<div>').html(`<strong>YouTube Video</strong>: https://www.youtube.com/watch?v=${data.items[0].id.videoId}`))
+      },
+    });
+
+    search = exData.slice(0,2).map(e => e.text).join(' ');
+    url = `https://api.edamam.com/api/recipes/v2?q=${search}`;
+
+    const recipes = $('#eda-recipes');
+    recipes.empty().text('no recipes found')
+
+    $.ajax({
+      method: "GET",
+      url: url,
+      data: {
+        type: 'public',
+        q: search,
+        random: true,
+        app_id: '358d7e38',
+        app_key: '07053a1780d2e158fb4e5c30facf71cf'
+      },
+      headers: {
+        'x-rapidapi-host': 'api.edamam.com/api/recipes/v2',
+        'x-rapidapi-key': '07053a1780d2e158fb4e5c30facf71cf'
+      },
+      success: function (data) {
+        if(data.hits.length === 0) return;
+        recipes.empty();
+        data.hits.slice(0,10).forEach(rep => {
+          rep = rep.recipe;
+          const holder = $('<div>').on('click', () => {
+            window.open(rep.url, '_blank');
+          }).addClass('new-recipe');
+
+          holder.append($('<div>').text(rep.label).addClass('rec-label'));
+          holder.append($('<img>').attr('src', rep.image))
+          holder.append($('<div>').text(`Source: ${rep.source}`).addClass('rec-source'))
+
+          recipes.append(holder);
+
+          $('#spin-links').append($('<div>').html(`<strong>${rep.label}</strong>: ${rep.url}`))
+        })
+      },
+      error: function (data) {
+        console.error(data);
+      },
+    });
+
+    _.delay(() => {
+      $('#info-container').show(1000);
+      recipes.scrollTop(0);
+    }, 8000)
+  }
+
   $(".spinner").each((i, spinner) => {
     $(spinner).css({
       transform: `translateY(-${spinner.clientHeight -
@@ -216,10 +270,6 @@ const spinReels = () => {
 
 spinReels();
 
-_.delay(() => {
-  clicks.forEach(c => c.play());
-}, 8000);
-
 
 // Populate with images and whatnot
 _(['reel-1', 'reel-2']).forEach((id) => {
@@ -227,7 +277,7 @@ _(['reel-1', 'reel-2']).forEach((id) => {
 
   for (let i = 0; i < 20; i++) {
     const file = images[~~(Math.random() * images.length)];
-    const url = `./img/${file.trim()}`;    
+    const url = `./img/${file.trim()}`;
     const img = new Image();
     img.src = url;
     img.onload = () => {
@@ -235,29 +285,21 @@ _(['reel-1', 'reel-2']).forEach((id) => {
       type: "img",
       value: url,
       text: file.trim().replace('.svg', '').replace(/[0-9]/g, '').replace(/-/g, ' ').trim(),
-    });    
+    });
     }
   }
-  
-  contents['reel-1'].push({ type: "empty", value: "" });
-  contents['reel-2'].push({ type: "empty", value: "" });
+
+  // how to add back empty spaces
+  // contents['reel-1'].push({ type: "empty", value: "" });
 });
 
   contents['reel-3'] = [];
   for (let i = 0; i < 30; i++) {
     contents['reel-3'].push(links[~~(Math.random() * links.length)]);
   }
-  
+
   contents['reel-4'] = [];
   contents['reel-4'].push({ type: "title", value: "Guest" });
-  contents['reel-4'].push({ type: "empty", value: "" });
-  contents['reel-4'].push({ type: "empty", value: "" });
-  contents['reel-4'].push({ type: "empty", value: "" });
-  // contents['reel-4'].push({ type: "text", value: "Mini Game", className: 'title-type' });
+
   contents['reel-4'].push({ type: "text", value: "Dish Battle", className: 'jumping-text' });
   contents['reel-4'].push({ type: "text", value: "Viewer Suggestion" });
-  
-  contents['reel-1'].push({ type: "empty", value: "" });
-  contents['reel-2'].push({ type: "empty", value: "" });
-  contents['reel-3'].push({ type: "empty", value: "" });
-  contents['reel-4'].push({ type: "empty", value: "" });
