@@ -1,27 +1,43 @@
 const contents = {
-  "reel-1": [{ type: "title", value: "New", className: 'no-filter' }],
+  "reel-1": [{ type: "title", value: "That", className: 'no-filter' }],
   "reel-2": [{ type: "title", value: "Food", className: 'no-filter' }],
   "reel-3": [{ type: "title", value: "Idea", className: 'no-filter' }]
 };
-
+const recipes = $('#eda-recipes');
 const spinNumber = 12;
+let revealTimer;
 
 let spin;
 let isSpinning = false;
 
 const clicks = [
   new Howl({
-    src: ['sounds/test.mp3'],
-    volume: 0.5,
+    src: ['sounds/try1.wav'],
+    volume: 0.25,
   }),
   new Howl({
-    src: ['sounds/testtwo.mp3'],
-    volume: 0.5,
+    src: ['sounds/try2.wav'],
+    volume: 0.25,
   }),
   new Howl({
-    src: ['sounds/testthree.mp3'],
-        volume: 0.25,
+    src: ['sounds/try3.wav'],
+        volume: 0.2,
   })];
+
+const reveal = new Howl({
+    src: ['sounds/swish.wav'],
+    volume: 0.5,
+  });
+
+const spin2 = new Howl({
+  src: ['sounds/start.wav'],
+  volume: 0.5,
+});
+
+const clap = new Howl({
+  src: ['sounds/clap2.wav'],
+  volume: 0.25,
+});
 
 let winImage = [];
 
@@ -99,6 +115,7 @@ const addCell = (adder, spinner) => {
 
 const populateReels = () => {
   winImage = [];
+  const others = [];
   _(contents).forEach((val, id, obj) => {
     const reel = $(`#${id}`);
     const screen = [];
@@ -133,6 +150,14 @@ const populateReels = () => {
         if (cell && !$(cell).hasClass('empty-type')) {
 
           const adder = $(cell).data('adder') || { text: cell.textContent };
+          if (others.indexOf(adder.text) > -1) {
+            say('same food, let\'s re-spin');
+            _.delay(() => {
+              spinReels(true);
+            }, 1700);
+            return;
+          }
+          others.push(adder.text);
           spinner.css({
             pointerEvents: 'auto',
           });
@@ -143,7 +168,7 @@ const populateReels = () => {
             _.delay(() => {
               say(adder.text);
             }, 500);
-          }, 500);
+          }, 100);
         }
       }));
     reel.append(spinner);
@@ -169,7 +194,88 @@ const populateReels = () => {
   return winImage;
 };
 
+let exData;
+
+const fillVideo = () => {
+  const API_KEY = "AIzaSyDZ2uN1epiY9KXT7sI6PwrgsbXU612Hfy4";
+  let search = exData.map(e => e.text).join(' ');
+
+  let url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}
+      &part=id&q=${search}&maxResults=1&type=video&relevanceLanguage=en&topicId=/m/02wbm`;
+
+  $('#yt-video').empty().html(`<div class="search">Searching ...</div>`);
+
+  $.ajax({
+    method: "GET",
+    url: url,
+    success: function (data) {
+      $('#yt-video').empty()
+      // .append($('<a target="_blank">').attr('href', `https://www.youtube.com/watch?v=${data.items[0].id.videoId}`).text(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`))
+      .append($(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.items[0].id.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`))
+
+      $('#spin-links').append($('<div>').html(`<strong>YouTube Video</strong>: <a href="https://www.youtube.com/watch?v=${data.items[0].id.videoId}" target="_blank">https://www.youtube.com/watch?v=${data.items[0].id.videoId}</a>`))
+    },
+    error: function (data) {
+      console.log(data);
+      $('#yt-video').empty().html(data.responseJSON.error.message);
+    }
+  });
+}
+
+  const fillRecipes = () => {
+
+  let search = exData.slice(0,2).map(e => e.text).join(' ');
+  url = `https://api.edamam.com/api/recipes/v2?q=${search}`;
+
+  recipes.empty().html('<div class="search">Searching ...</div>')
+
+  $.ajax({
+    method: "GET",
+    url: url,
+    data: {
+      type: 'public',
+      q: search,
+      random: true,
+      app_id: '358d7e38',
+      app_key: '07053a1780d2e158fb4e5c30facf71cf'
+    },
+    headers: {
+      'x-rapidapi-host': 'api.edamam.com/api/recipes/v2',
+      'x-rapidapi-key': '07053a1780d2e158fb4e5c30facf71cf'
+    },
+    success: function (data) {
+      if(data.hits.length === 0) return;
+      recipes.empty();
+      data.hits.slice(0,10).forEach(rep => {
+        rep = rep.recipe;
+        const holder = $('<div>').on('click', () => {
+          window.open(rep.url, '_blank');
+        }).addClass('new-recipe').hide();
+
+        holder.append($('<div>').text(rep.label).addClass('rec-label'));
+        holder.append($('<img>').attr('src', rep.image))
+        holder.append($('<div>').text(`Source: ${rep.source}`).addClass('rec-source'))
+
+        recipes.append(holder);
+
+        $('#spin-links')
+        .append($('<div>').html(`<strong>${rep.label}</strong>: <a href="${rep.url}" target="_blank">${rep.url}</a>`))
+      })
+
+      _.delay(() => {
+        $('.new-recipe').show();
+      }, 500);
+    },
+    error: function (data) {
+      console.error(data);
+    },
+  });
+}
+
 const spinReels = (addExtras = false) => {
+  if (revealTimer) {
+    clearTimeout(revealTimer);
+  }
   selectNewVoice();
   isSpinning = true;
   $('.flashin').hide();
@@ -178,6 +284,7 @@ const spinReels = (addExtras = false) => {
   $('#spin-links').empty();
   if (spin) {
       spin.play();
+      spin2.play();
   } else {
     spin = new Howl({
       src: ['sounds/click.mp3'],
@@ -185,84 +292,25 @@ const spinReels = (addExtras = false) => {
     });
   }
 
-  const exData = populateReels();
+  exData = populateReels();
 
   if (addExtras && exData) {
-    const API_KEY = "AIzaSyDZ2uN1epiY9KXT7sI6PwrgsbXU612Hfy4";
-    let search = exData.map(e => e.text).join(' ');
+    $('#yt-video').empty().append($('<button>').addClass('button').text('Gimme a Video').on('click', fillVideo));
+    recipes.empty().append($('<button>').addClass('button').text('Gimme Recipes').on('click', fillRecipes));
 
-    $('#spin-links').append($('<h3>').text(exData.map(e => e.text).join(', ').toUpperCase()));
-    $('#spin-links').append($('<div>').html(`<strong>${exData[2].text}</strong>: <a href="${exData[2].link}" target="_blank">${exData[2].link}</a>`));
+    $('#spin-links')
+    .append($('<h3>').text(exData.map(e => e.text).join(', ').toUpperCase()))
+    .append($('<div>').html(`<strong>${exData[2].text}</strong>: <a href="${exData[2].link}" target="_blank">${exData[2].link}</a>`))
+    .append($('<br/>'));
 
-    let url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}
-        &part=id&q=${search}&maxResults=1&type=video&relevanceLanguage=en&topicId=/m/02wbm`;
-
-    $('#yt-video').empty().text('no videos found');
-
-    $.ajax({
-      method: "GET",
-      url: url,
-      success: function (data) {
-        $('#yt-video').empty()
-        // .append($('<a target="_blank">').attr('href', `https://www.youtube.com/watch?v=${data.items[0].id.videoId}`).text(`https://www.youtube.com/watch?v=${data.items[0].id.videoId}`))
-        .append($(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${data.items[0].id.videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`))
-
-        $('#spin-links').append($('<div>').html(`<strong>YouTube Video</strong>: <a href="https://www.youtube.com/watch?v=${data.items[0].id.videoId}" target="_blank">https://www.youtube.com/watch?v=${data.items[0].id.videoId}</a>`))
-      },
-      error: function (data) {
-        console.log(data);
-        $('#yt-video').empty().html(data.responseJSON.error.message);
-      }
-    });
-
-    search = exData.slice(0,2).map(e => e.text).join(' ');
-    url = `https://api.edamam.com/api/recipes/v2?q=${search}`;
-
-    const recipes = $('#eda-recipes');
-    recipes.empty().text('no recipes found')
-
-    $.ajax({
-      method: "GET",
-      url: url,
-      data: {
-        type: 'public',
-        q: search,
-        random: true,
-        app_id: '358d7e38',
-        app_key: '07053a1780d2e158fb4e5c30facf71cf'
-      },
-      headers: {
-        'x-rapidapi-host': 'api.edamam.com/api/recipes/v2',
-        'x-rapidapi-key': '07053a1780d2e158fb4e5c30facf71cf'
-      },
-      success: function (data) {
-        if(data.hits.length === 0) return;
-        recipes.empty();
-        data.hits.slice(0,10).forEach(rep => {
-          rep = rep.recipe;
-          const holder = $('<div>').on('click', () => {
-            window.open(rep.url, '_blank');
-          }).addClass('new-recipe');
-
-          holder.append($('<div>').text(rep.label).addClass('rec-label'));
-          holder.append($('<img>').attr('src', rep.image))
-          holder.append($('<div>').text(`Source: ${rep.source}`).addClass('rec-source'))
-
-          recipes.append(holder);
-
-          $('#spin-links').append($('<div>').html(`<strong>${rep.label}</strong>: <a href="${rep.url}" target="_blank">${rep.url}</a>`))
-        })
-      },
-      error: function (data) {
-        console.error(data);
-      },
-    });
-
-    _.delay(() => {
+    revealTimer = _.delay(() => {
       $('#info-container').show(1000);
       $('#board').addClass('done-done');
-      recipes.scrollTop(0);
-    }, 12000)
+      reveal.play();
+      _.delay(() => {
+        clap.play();
+      }, 970)
+    }, 12500)
   }
 
   $(".spinner").each((i, spinner) => {

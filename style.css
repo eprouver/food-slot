@@ -1,6 +1,6 @@
 body {
   background-color: #999;
-  background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.25) 35px, rgba(255, 255, 255, 0.25) 70px);
+  background-image: repeating-linear-gradient(30deg, transparent, transparent 15vh, rgba(255, 255, 255, 0.1) 15vh, rgba(255, 255, 255, 0.1) 30vh);
   overflow-x: hidden;
 }
 
@@ -46,31 +46,7 @@ body::-webkit-scrollbar {
   font-weight: bold;
   font-family: 'Pacifico', cursive;
   color: white;
-  text-shadow: -1px -1px 0 black,
-  1px -1px 0 black,
-  -1px 1px 0 black,
-  1px 1px 0 black,
-  1px 0px 0px #ccc,
-  0px 1px 0px #ccc,
-  2px 1px 0px #ccc,
-  1px 2px 0px #ccc,
-  3px 2px 0px #ccc,
-  2px 3px 0px #ccc,
-  4px 3px 0px #ccc,
-  3px 4px 0px #ccc,
-  5px 4px 0px #ccc,
-  3px 5px 0px black,
-  6px 5px 0px black,
-  1px 2px 0 black,
-  0 3px 0 black,
-  1px 4px 0 black,
-  2px 5px 0px black,
-  2px -1px 0 black,
-  3px 0 0 black,
-  4px 1px 0 black,
-  5px 2px 0px black,
-  6px 3px 0 black,
-  7px 4px 0 black;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, 1px 0px 0px #5eeef8, 0px 1px 0px #705dff, 2px 1px 0px #f559ff, 1px 2px 0px #ff5b5b, 3px 2px 0px #96cdff, 2px 3px 0px #a7ff2d, 4px 3px 0px #ffffff, 3px 4px 0px #ffbf4a, 5px 4px 0px #45ff28, 3px 5px 0px black, 6px 5px 0px black, 1px 2px 0 black, 0 3px 0 black, 1px 4px 0 black, 2px 5px 0px black, 2px -1px 0 black, 3px 0 0 black, 4px 1px 0 black, 5px 2px 0px black, 6px 3px 0 black, 7px 4px 0 black;
 }
 #reel-container .reel .cell .link-type {
     text-align: center;
@@ -95,7 +71,7 @@ body::-webkit-scrollbar {
   box-shadow: 0 0 0 0.5vmin black;
   color: blue;
   text-decoration: underline;
-  filter: drop-shadow(-1vw 3vh 1vh rgba(0,0,0,0.5));
+  filter: drop-shadow(-1vw 3.3vh 1vh rgba(0,0,0,0.3));
   width: 13vw;
   word-break: break-word;
   left: -1vw;
@@ -119,7 +95,7 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  filter: drop-shadow(-1vw 3vh 1vh rgba(0,0,0,0.5));
+  filter: drop-shadow(-1vw 3.3vh 1vh rgba(0,0,0,0.3));
 }
 
 .animated .img-type:before {
@@ -165,24 +141,34 @@ body::-webkit-scrollbar {
   position: relative;
 }
 
+.search {
+  align-self: center;
+  text-align: center;
+  width: 100%;
+}
+
+.button {
+  padding: 10px;
+  font-family: Helvetica;
+  font-weight: bold;
+  margin: 0.5em auto;
+  border-radius: 0.45em;
+  border: 0;
+  border-bottom: 0.15em solid #777;
+  box-shadow: 0 0 0 0.1em #999999;
+  background: linear-gradient(185deg, #eee 10%, #ccc 40%, #bbb 70%, #999 100%);
+  text-shadow: 0px 1px 0px #ffffff;
+  cursor: pointer;
+  outline: none !important;
+  font-size: 3vh;
+  align-self: center;
+  color: #333;
+}
+
 #spin-container .button {
-    width: 50%;
-    font-size: 6vh;
-    padding: 10px;
-    font-family: Helvetica;
-    font-weight: bold;
-    margin: 10px auto;
-    height: 10vh;
-    border-radius: 10px;
-    border-bottom: 5px solid #777;
-    box-shadow: 0 0 0 4px #999999;
-    background: linear-gradient(to bottom, #ededed 5%, #a5a5a5 100%);
-    background-color: #ededed;
-    text-shadow: 0px 1px 0px #ffffff;
-    border-left: 0;
-    border-right: 0;
-    cursor: pointer;
-    outline: none !important;
+  width: 50%;
+  font-size: 6vh;
+  height: 10vh;
 }
 
 #spin-container #link-button {
@@ -280,12 +266,16 @@ body::-webkit-scrollbar {
   background: rgb(204 204 204);
   text-align: center;
   overflow-y: scroll;
+  overflow-x: hidden;
   border: 4px solid #777;
+  display: flex;
+  flex-flow: wrap;
 }
 
 iframe {
     max-height: 100%;
     max-width: 100%;
+    margin: 0 auto;
 }
 
 #eda-recipes {
@@ -294,11 +284,11 @@ iframe {
 
 .new-recipe {
   text-align: center;
-  background: #b3b3b3;
+  background: #fff;
   padding: 4px;
   cursor: pointer;
   position: relative;
-  overflow: hidden;
+  width: 100%;
 }
 
 #eda-recipes img {
@@ -366,5 +356,5 @@ text-shadow: -1px 1px #dbdbdb;
 
 #yt-video {
   overflow: hidden;
-  background: #b3b3b3;
+  background: #ccc;
 }
