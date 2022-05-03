@@ -4,6 +4,10 @@ body {
   overflow-x: hidden;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 * {
     backface-visibility: hidden;
 }
@@ -90,7 +94,7 @@ body {
   box-shadow: 0 0 0 0.5vmin black;
   color: blue;
   text-decoration: underline;
-  filter: drop-shadow(-1vw 3vh 1vh #999);
+  filter: drop-shadow(-1vw 3vh 1vh rgba(0,0,0,0.5));
   width: 13vw;
   word-break: break-word;
   left: -1vw;
@@ -114,7 +118,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-    filter: drop-shadow(-1vw 3vh 1vh #999);
+  filter: drop-shadow(-1vw 3vh 1vh rgba(0,0,0,0.5));
 }
 
 .animated .img-type:before {
@@ -167,7 +171,7 @@ body {
     height: 10vh;
     border-radius: 10px;
     border-bottom: 5px solid #777;
-    box-shadow: inset 0px 1px 0px 0px #ffffff, 0 0 0 10px #999999;
+    box-shadow: 0 0 0 4px #999999;
     background: linear-gradient(to bottom, #ededed 5%, #a5a5a5 100%);
     background-color: #ededed;
     text-shadow: 0px 1px 0px #ffffff;
@@ -193,10 +197,10 @@ body {
 
 @keyframes swing {
   from {
-    transform: rotate(-8deg);
+    transform: rotateZ(-8deg) ;
   }
   to {
-    transform: rotate(8deg);
+    transform: rotateZ(8deg) ;
   }
 }
 
@@ -239,7 +243,7 @@ body {
 
 #reel-container {
   background: white;
-  height: 73vh;
+  height: 75vh;
   font-size: 1em;
   display: grid;
   grid-gap: 0 10px;
@@ -248,29 +252,31 @@ body {
   overflow: hidden;
   box-shadow: inset 0 0 20px #484848;
   width: 56%;
-  border: 10px solid #777;
+  border: 4px solid #777;
   padding: 15px;
 }
 
 #info-container {
-  width: 36%;
+  width: 34%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transform: translateX(-1vw);
 }
 #board {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   transform-style: preserve-3d;
   perspective: 3000px;
 }
 
 .extra-info {
   width: 100%;
-  height: 33.5vh;
+  height: 34.5vh;
   background: rgb(204 204 204);
   text-align: center;
   overflow-y: scroll;
+  border: 4px solid #777;
 }
 
 iframe {
@@ -279,14 +285,12 @@ iframe {
 }
 
 #eda-recipes {
-  height: 40vh;
-  border-bottom: 6px solid #777;
+  height: 37vh;
 }
 
 .new-recipe {
   text-align: center;
   background: #b3b3b3;
-  margin: 4px;
   padding: 4px;
   cursor: pointer;
   position: relative;
@@ -295,9 +299,10 @@ iframe {
 
 #eda-recipes img {
   width: 80%;
+  max-width: 400px;
   margin: 10px;
   border-radius: 5px;
-  border: 2px solid #999;
+  border: 12px solid #cccccc;
 }
 
 .rec-label {
@@ -309,7 +314,7 @@ iframe {
     position: absolute;
     border: 1px solid #cccccc;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    color: black;
+    color: #5f5f5f;
 text-shadow: -1px 1px #dbdbdb;
   font-family: 'Pacifico', cursive;
 }
@@ -323,12 +328,12 @@ text-shadow: -1px 1px #dbdbdb;
   display: flex;
 }
 
-/* .done-done #reel-container {
-  transform: rotateY(25deg) translateX(-3%);
+.done-done #reel-container {
+  transform:  translateX(1vw) rotateY(12deg);
   transition: transform 1s ease;
 }
 
-.done-done #info-container {
+/* .done-done #info-container {
   transform: rotateY(-25deg) translateX(-15%);
   transition: transform 1s ease;
 } */
@@ -356,5 +361,6 @@ text-shadow: -1px 1px #dbdbdb;
   }
 
 #yt-video {
-    overflow: hidden;
+  overflow: hidden;
+  background: #b3b3b3;
 }
