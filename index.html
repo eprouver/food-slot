@@ -53,6 +53,18 @@
 
 </div>
 </div>
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <defs>
+      <filter id="squig-1">
+            <feTurbulence id="turbulence" baseFrequency="0.003" numOctaves="3" result="noise" seed="0"></feTurbulence>
+            <feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="8"></feDisplacementMap>
+          </filter>
+     <animate xlink:href="#turbulence" attributeName="seed" from="-25" to="25" dur="8" fill="freeze" repeatCount="indefinite"></animate>
+
+         <animate xlink:href="#displacement" attributeName="scale" from="10" to="15" dur="2" fill="freeze" repeatCount="indefinite"></animate>
+    </defs>
+</svg>
 <!-- partial -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.min.js" integrity="sha256-/Q4ZPy6sMbk627wHxuaWSIXS1y7D2KnMhsm/+od7ptE=" crossorigin="anonymous"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js'></script>

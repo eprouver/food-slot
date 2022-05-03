@@ -1091,11 +1091,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "Appetite",
-    "url": "https://en.wikipedia.org/wiki/Appetite"
-  },
-  {
-    "type": "link",
     "value": "Aristology",
     "url": "https://en.wikipedia.org/wiki/Aristology"
   },

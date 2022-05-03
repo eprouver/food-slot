@@ -4,7 +4,7 @@ const contents = {
   "reel-3": [{ type: "title", value: "Idea", className: 'no-filter' }]
 };
 
-const spinNumber = 30;
+const spinNumber = 12;
 
 let spin;
 let isSpinning = false;
@@ -46,7 +46,6 @@ let say = (m) => {
   let msg = new SpeechSynthesisUtterance();
   msg.voice = voice;
   msg.volume = 0.25;
-  // msg.pitch = 1.1;
   msg.rate = 1.3;
   msg.text = m;
   msg.lang = 'en';
@@ -101,9 +100,6 @@ const addCell = (adder, spinner) => {
 const populateReels = () => {
   winImage = [];
   _(contents).forEach((val, id, obj) => {
-    // val []
-    // id 'reel #'
-    // get the last 4 items in each reel;
     const reel = $(`#${id}`);
     const screen = [];
     const index = _(obj).toArray().indexOf(val);
@@ -135,15 +131,16 @@ const populateReels = () => {
         $('.win-type').remove();
 
         if (cell && !$(cell).hasClass('empty-type')) {
-          $(cell).addClass("animated tada");
+
           const adder = $(cell).data('adder') || { text: cell.textContent };
           spinner.css({
             pointerEvents: 'auto',
           });
+          const sfx = clicks[index % clicks.length].play();
+          clicks[index % clicks.length].rate(1.5, sfx);
           _.delay(() => {
+            $(cell).addClass("animated tada");
             _.delay(() => { say(adder.text); }, 500);
-            const sfx = clicks[index % clicks.length].play();
-            clicks[index % clicks.length].rate(1.5, sfx);
           }, 500);
         }
       }));
@@ -259,7 +256,7 @@ const spinReels = (addExtras = false) => {
       $('#info-container').show(1000);
       $('#board').addClass('done-done');
       recipes.scrollTop(0);
-    }, 8000)
+    }, 12000)
   }
 
   $(".spinner").each((i, spinner) => {
@@ -271,7 +268,6 @@ const spinReels = (addExtras = false) => {
 };
 
 spinReels();
-
 
 // Populate with images and whatnot
 _(['reel-1', 'reel-2']).forEach((id) => {
@@ -290,18 +286,9 @@ _(['reel-1', 'reel-2']).forEach((id) => {
     });
     }
   }
-
-  // how to add back empty spaces
-  // contents['reel-1'].push({ type: "empty", value: "" });
 });
 
   contents['reel-3'] = [];
   for (let i = 0; i < 30; i++) {
     contents['reel-3'].push(links[~~(Math.random() * links.length)]);
   }
-  //
-  // contents['reel-4'] = [];
-  // contents['reel-4'].push({ type: "title", value: "Guest" });
-  //
-  // contents['reel-4'].push({ type: "text", value: "Dish Battle", className: 'jumping-text' });
-  // contents['reel-4'].push({ type: "text", value: "Viewer Suggestion" });
