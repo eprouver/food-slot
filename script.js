@@ -140,7 +140,9 @@ const populateReels = () => {
           clicks[index % clicks.length].rate(1.5, sfx);
           _.delay(() => {
             $(cell).addClass("animated tada");
-            _.delay(() => { say(adder.text); }, 500);
+            _.delay(() => {
+              say(adder.text);
+            }, 500);
           }, 500);
         }
       }));
@@ -186,7 +188,7 @@ const spinReels = (addExtras = false) => {
   const exData = populateReels();
 
   if (addExtras && exData) {
-    const API_KEY = "AIzaSyCiAvnALpVZq0dUkW4uXMsoprsunUHpDyI";
+    const API_KEY = "AIzaSyDZ2uN1epiY9KXT7sI6PwrgsbXU612Hfy4";
     let search = exData.map(e => e.text).join(' ');
 
     $('#spin-links').append($('<h3>').text(exData.map(e => e.text).join(', ').toUpperCase()));
@@ -207,6 +209,10 @@ const spinReels = (addExtras = false) => {
 
         $('#spin-links').append($('<div>').html(`<strong>YouTube Video</strong>: <a href="https://www.youtube.com/watch?v=${data.items[0].id.videoId}" target="_blank">https://www.youtube.com/watch?v=${data.items[0].id.videoId}</a>`))
       },
+      error: function (data) {
+        console.log(data);
+        $('#yt-video').empty().html(data.responseJSON.error.message);
+      }
     });
 
     search = exData.slice(0,2).map(e => e.text).join(' ');

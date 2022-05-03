@@ -28,6 +28,7 @@ body::-webkit-scrollbar {
   margin-top: -12vh;
   transition: transform 4s cubic-bezier(.04,-0.27,.76,1.18);
 }
+
 #reel-container .reel .cell {
   height: 30vh;
   display: flex;
@@ -147,12 +148,15 @@ body::-webkit-scrollbar {
 
 #reel-container #reel-1 .spinner {
   transition-duration: 5s;
+  animation-duration: 5s;
 }
 #reel-container #reel-2 .spinner {
   transition-duration: 7s;
+  animation-duration: 7s;
 }
 #reel-container #reel-3 .spinner {
   transition-duration: 9s;
+  animation-duration: 9s;
 }
 
 #spin-container {
@@ -191,7 +195,7 @@ body::-webkit-scrollbar {
     z-index: 10;
     position: relative;
     filter: url('#squig-1');
-    animation: 1.2s ease-in-out swing infinite alternate;
+    animation: 1.2s steps(8) swing infinite alternate;
     transform-origin: 50% 80%;
 }
 

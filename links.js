@@ -3996,11 +3996,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "bc food",
-    "url": "https://www.reddit.com/r/bcfood/top/?t=all"
-  },
-  {
-    "type": "link",
     "value": "food rot",
     "url": "https://www.reddit.com/r/foodrot/top/?t=all"
   },
