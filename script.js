@@ -39,6 +39,11 @@ const clap = new Howl({
   volume: 0.25,
 });
 
+const pick = new Howl({
+  src: ['sounds/pick.wav'],
+  volume: 0.25,
+});
+
 let winImage = [];
 
 let voice;
@@ -61,7 +66,7 @@ let say = (m) => {
   speechSynthesis.cancel();
   let msg = new SpeechSynthesisUtterance();
   msg.voice = voice;
-  msg.volume = 0.25;
+  msg.volume = 0.4;
   msg.rate = 1.3;
   msg.text = m;
   msg.lang = 'en';
@@ -197,6 +202,7 @@ const populateReels = () => {
 let exData;
 
 const fillVideo = () => {
+  pick.play();
   const API_KEY = "AIzaSyDZ2uN1epiY9KXT7sI6PwrgsbXU612Hfy4";
   let search = exData.map(e => e.text).join(' ');
 
@@ -223,6 +229,7 @@ const fillVideo = () => {
 }
 
   const fillRecipes = () => {
+    pick.play();
 
   let search = exData.slice(0,2).map(e => e.text).join(' ');
   url = `https://api.edamam.com/api/recipes/v2?q=${search}`;
