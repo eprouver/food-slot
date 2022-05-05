@@ -876,11 +876,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "Software",
-    "url": "https://en.wikipedia.org/wiki/Software"
-  },
-  {
-    "type": "link",
     "value": "Supermarket",
     "url": "https://en.wikipedia.org/wiki/Supermarket"
   },
