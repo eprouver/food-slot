@@ -1201,11 +1201,6 @@ const links = [
   },
   {
     "type": "link",
-    "value": "Sensory analysis",
-    "url": "https://en.wikipedia.org/wiki/Sensory_analysis"
-  },
-  {
-    "type": "link",
     "value": "Shelf-life",
     "url": "https://en.wikipedia.org/wiki/Shelf-life"
   },
