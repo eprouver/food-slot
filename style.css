@@ -40,14 +40,16 @@ body::-webkit-scrollbar {
   justify-content: center;
 }
 #reel-container .reel .cell .title-type {
-  text-align: center;
-  margin: auto;
-  font-size: 7.25vw;
-  width: 100%;
-  font-weight: bold;
-  font-family: 'Pacifico', cursive;
-  color: white;
-  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, 1px 0px 0px #5eeef8, 0px 1px 0px #705dff, 2px 1px 0px #f559ff, 1px 2px 0px #ff5b5b, 3px 2px 0px #96cdff, 2px 3px 0px #a7ff2d, 4px 3px 0px #ffffff, 3px 4px 0px #ffbf4a, 5px 4px 0px #45ff28, 3px 5px 0px black, 6px 5px 0px black, 1px 2px 0 black, 0 3px 0 black, 1px 4px 0 black, 2px 5px 0px black, 2px -1px 0 black, 3px 0 0 black, 4px 1px 0 black, 5px 2px 0px black, 6px 3px 0 black, 7px 4px 0 black;
+    text-align: center;
+    margin: auto;
+    font-size: 12.25vw;
+    width: 100%;
+    font-weight: bold;
+    font-family: 'Rancho', cursive;
+    color: white;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, 1px 0px 0px #5eeef8, 0px 1px 0px #705dff, 2px 1px 0px #f559ff, 1px 2px 0px #ff5b5b, 3px 2px 0px #96cdff, 2px 3px 0px #a7ff2d, 4px 3px 0px #ffffff, 3px 4px 0px #ffbf4a, 5px 4px 0px #45ff28, 3px 5px 0px black, 6px 5px 0px black, 1px 2px 0 black, 0 3px 0 black, 1px 4px 0 black, 2px 5px 0px black, 2px -1px 0 black, 3px 0 0 black, 4px 1px 0 black, 5px 2px 0px black, 6px 3px 0 black, 7px 4px 0 black;
+    transform: rotate(-20deg);
+    text-indent: -0.1em;
 }
 
 #reel-container .reel .cell:nth-child(even) .title-type {
@@ -301,7 +303,7 @@ body::-webkit-scrollbar {
 
 .extra-info {
   width: 100%;
-  height: 34.5vh;
+  height: 36.7vh;
   background: rgb(204 204 204);
   text-align: center;
   overflow-y: scroll;
@@ -360,7 +362,7 @@ iframe {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     color: #5f5f5f;
 text-shadow: -1px 1px #dbdbdb;
-  font-family: 'Pacifico', cursive;
+  font-family: 'Rancho', cursive;
   z-index: 1;
 }
 
@@ -408,4 +410,5 @@ text-shadow: -1px 1px #dbdbdb;
 #yt-video {
   overflow: hidden;
   background: #ccc;
+  align-items: center;
 }
