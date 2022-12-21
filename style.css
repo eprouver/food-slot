@@ -1,8 +1,54 @@
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #3e3d8a #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 0;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 10px;
+    border: 3px none #999999;
+  }
+
+
 body {
   background-color: #999;
   background-image: repeating-linear-gradient(30deg, transparent, transparent 15vh, rgba(255, 255, 255, 0.1) 15vh, rgba(255, 255, 255, 0.1) 30vh);
   overflow-x: hidden;
   background-attachment: fixed;
+}
+
+#snap-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  width: 100vw;
+  overflow: scroll;
+  overflow-x: hidden;
+  top: 0;
+}
+
+#eda-recipes {
+  scroll-snap-type: y mandatory;
+}
+
+#slot-container, #bottom-stuff {
+  height: 100% !important;
+  width: 100%;
+}
+
+#snap-container  > *, #eda-recipes > *:not(button)  {
+  scroll-snap-align: start;
+  width: 100%;
 }
 
 body::-webkit-scrollbar {
@@ -16,7 +62,7 @@ body::-webkit-scrollbar {
 #slot-container {
   position: relative;
   margin: 0 auto;
-  margin-top: 20px;
+  padding-top: 2.5vh;
 }
 
 #reel-container .reel {
@@ -65,7 +111,7 @@ body::-webkit-scrollbar {
   transition: all 0.25s 0.5s ease;
   background: white;
   padding: 0.5em;
-  font-size: 5vmin;
+  font-size: 2.5vw;
   text-transform: capitalize;
   font-weight: bold;
   border-radius: 10px;
@@ -124,16 +170,16 @@ body::-webkit-scrollbar {
 
 
 #reel-container #reel-1 .spinner {
-  transition-duration: 5s;
-  animation-duration: 5s;
+  transition-duration: 4s;
+  animation-duration: 4s;
 }
 #reel-container #reel-2 .spinner {
-  transition-duration: 7s;
-  animation-duration: 7s;
+  transition-duration: 6s;
+  animation-duration: 6s;
 }
 #reel-container #reel-3 .spinner {
-  transition-duration: 9s;
-  animation-duration: 9s;
+  transition-duration: 8s;
+  animation-duration: 8s;
 }
 
 #spin-container {
@@ -242,20 +288,6 @@ body::-webkit-scrollbar {
   margin: 10px;
 }
 
-.flashin {
-  background-size: contain;
-  position: fixed;
-  height: 45vh;
-  width: 45vh;
-  bottom: 1vh;
-  z-index: 999;
-  left: -1vh;
-  animation: 1s ease rotateInUpLeft;
-  display: none;
-  filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.75));
-  pointer-events: none;
-}
-
 #right-ing {
   right: -1vh;
   left: auto;
@@ -284,6 +316,7 @@ body::-webkit-scrollbar {
   flex-direction: column;
   justify-content: center;
   transform: translateX(-1vw);
+  max-height: 79vh;
 }
 #board {
   display: flex;
@@ -294,7 +327,6 @@ body::-webkit-scrollbar {
 
 .extra-info {
   width: 100%;
-  height: 34.5vh;
   background: rgb(204 204 204);
   text-align: center;
   overflow-y: scroll;
@@ -303,43 +335,36 @@ body::-webkit-scrollbar {
   display: flex;
   flex-flow: wrap;
   outline: 4px solid rgba(100,100,100,0.25);
+  flex-grow: 1;
+  margin: 1em 0;
+  max-height: 66%;
 }
 
 iframe {
-    max-height: 100%;
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
     margin: 0 auto;
-}
-
-#eda-recipes {
-  height: 37vh;
+    top: 0;
+    left: 0;
 }
 
 .new-recipe {
   text-align: center;
-  background: #fff;
+  background: #aaa;
   padding: 4px;
   cursor: pointer;
   position: relative;
   width: 100%;
+  height: 100%;
 }
 
 #eda-recipes img {
-  width: 80%;
-  max-width: 400px;
-  margin: 10px;
+  width: 100%;
   border-radius: 5px;
-  border: 12px solid #cccccc;
+  /* border: 12px solid #cccccc; */
   animation: 1s ease fadeIn forwards;
-}
-
-@keyframes {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  height: 100%;
+  object-fit: cover;
 }
 
 .rec-label {
@@ -364,6 +389,7 @@ text-shadow: -1px 1px #dbdbdb;
 
 #bottom-stuff {
   display: flex;
+
 }
 
 .done-done #reel-container {
@@ -371,34 +397,17 @@ text-shadow: -1px 1px #dbdbdb;
   transition: transform 1s ease;
 }
 
-/* .done-done #info-container {
-  transform: rotateY(-25deg) translateX(-15%);
-  transition: transform 1s ease;
-} */
-
-/* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #3e3d8a #ffffff;
-  }
-
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: #999;
-    border-radius: 10px;
-    border: 3px none #999999;
-  }
-
 #yt-video {
   overflow: hidden;
   background: #ccc;
+}
+
+#yt-target {
+  height: 0;
+  overflow:hidden;
+  transition: 1s ease-in-out;
+}
+
+#yt-target.full-height {
+  height: 100vh;
 }
