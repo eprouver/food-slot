@@ -1,3 +1,5 @@
+// export NODE_TLS_REJECT_UNAUTHORIZED=0
+
 const contents = {
   "reel-1": [{ type: "title", value: "That", className: "no-filter" }],
   "reel-2": [{ type: "title", value: "Food", className: "no-filter" }],
@@ -114,7 +116,6 @@ const addCell = (adder, spinner) => {
             .addClass("img-type")
             .css({ backgroundImage: `url(${adder.value})` })
             .attr("data", adder.text)
-          // .on('click', (e) => $(e.target).slideUp().delay().fadeIn()));
         )
         .data("adder", adder);
       break;
@@ -374,11 +375,7 @@ const spinReels = (addExtras = false) => {
             .toUpperCase()
         )
       )
-      .append(
-        $("<div>").html(
-          `<strong>${exData[2].text}</strong>: <a href="${exData[2].link}" target="_blank">${exData[2].link}</a>`
-        )
-      )
+      .append($("<div>").html(`${exData[2].link}`))
       .append($("<br/>"));
 
     revealTimer = _.delay(() => {
